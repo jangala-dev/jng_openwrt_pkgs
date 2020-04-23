@@ -5,8 +5,11 @@ PKG_VERSION:=3.1
 PKG_RELEASE:=1
 PKG_MAINTAINER:=Alexander <xhaskx@gmail.com>
 
-PKG_SOURCE:=v$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/xHasKx/$(PKG_NAME)/archive/
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/xHasKx/luamqtt.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=478ce8e452972d2ea6aee1c9c3aebf291d8efe44
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 include $(INCLUDE_DIR)/package.mk
 
