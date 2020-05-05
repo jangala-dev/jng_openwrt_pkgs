@@ -17,7 +17,7 @@ PKG_HASH:=24f1aa69b539e6796445c2228f921744ad64f9336498c7537bee97719d914804
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/lua-cqueues
+define Package/cqueues
   SUBMENU:=Lua
   SECTION:=lang
   CATEGORY:=Languages
@@ -27,7 +27,7 @@ define Package/lua-cqueues
   DEPENDS:=+lua +libopenssl +librt +libpthread
 endef
 
-define Package/lua-cqueues/description
+define Package/cqueues/description
   Continuation Queues: Embeddable asynchronous networking, threading, and
   notification framework for Lua on Unix.
 endef
@@ -44,11 +44,11 @@ define Build/Compile
 endef
 
 
-define Package/lua-cqueues/install
+define Package/cqueues/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
 	$(MAKE) -C $(PKG_BUILD_DIR)/ \
 		lua51path=$(1)/usr/lib/lua lua51cpath=$(1)/usr/lib/lua \
 		install5.1
 endef
 
-$(eval $(call BuildPackage,lua-cqueues))
+$(eval $(call BuildPackage,cqueues))
