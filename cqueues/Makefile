@@ -7,12 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=lua-cqueues
+PKG_NAME:=cqueues
 PKG_VERSION:=rel-20190813
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/wahern/cqueues/archive
+PKG_SOURCE_URL:=https://github.com/wahern/$(PKG_NAME)/archive
 PKG_HASH:=24f1aa69b539e6796445c2228f921744ad64f9336498c7537bee97719d914804
 
 include $(INCLUDE_DIR)/package.mk
