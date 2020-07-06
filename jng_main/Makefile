@@ -17,7 +17,12 @@ define Package/jng-main
 	SECTION:=core
 	CATEGORY:=JNG
 	TITLE:=Get Box Main
-	DEPENDS:=+luajit +luasocket
+	DEPENDS:=+luajit \
+		+luasocket \
+		+luabitop \
+		+luaposix \
+		+dkjson \
+		+lua-openssl
 endef
 
 define Package/jng-main/description
