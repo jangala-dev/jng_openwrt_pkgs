@@ -17,12 +17,12 @@ define Package/jng-main
 	SECTION:=core
 	CATEGORY:=JNG
 	TITLE:=Get Box Main
-	DEPENDS:=+luajit \
-		+luasocket \
+	DEPENDS:=+luasocket \
 		+luabitop \
 		+luaposix \
 		+dkjson \
-		+lua-openssl
+		+lua-openssl \
+		+lua-lumen
 endef
 
 define Package/jng-main/description
@@ -38,6 +38,7 @@ define Package/jng-main/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/getbox.lua $(1)/root/getboxtoy/main/getbox
+	$(CP) $(PKG_BUILD_DIR)/config.default $(1)/root/getboxtoy/main
 	$(CP) $(PKG_BUILD_DIR)/modules $(1)/root/getboxtoy/main
 	$(CP) $(PKG_BUILD_DIR)/etc $(1)/root/getboxtoy/main/
 	$(INSTALL_BIN) ./files/getbox.init $(1)/etc/init.d/getbox
