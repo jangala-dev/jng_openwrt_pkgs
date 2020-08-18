@@ -43,12 +43,8 @@ endef
 
 define Package/rauc/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/etc/dbus-1/system.d
-	$(INSTALL_DIR) $(1)/usr/share/dbus-1/system-services
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/rauc $(1)/usr/bin/rauc
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/data/de.pengutronix.rauc.conf $(1)/etc/dbus-1/system.d
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/data/de.pengutronix.rauc.service $(1)/usr/share/dbus-1/system-services
 endef
 
 define Package/rauc/postinst
