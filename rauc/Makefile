@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rauc
-PKG_VERSION:=v1.4
+PKG_VERSION:=v1.2
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/rauc/rauc.git
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_VERSION:=ae9cee9f29fc3ba101c887cafe0bca89e4fadd80
+PKG_SOURCE_VERSION:=222a19a5f306fa2f6f24104e8d0ac6837b34e544
 
 PKG_MAINTAINER:=Enrico Jorns <e.joerns@pengutronix.de>
 
