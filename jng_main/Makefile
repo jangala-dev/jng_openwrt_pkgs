@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jng-main
-PKG_VERSION:=0.0.2
+PKG_VERSION:=0.0.2-rc1
 PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
