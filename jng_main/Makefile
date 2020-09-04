@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jng-main
-PKG_VERSION:=0.0.1
-PKG_RELEASE:=1
+PKG_VERSION:=0.0.2
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git@bitbucket.org:jangala/main.git
-PKG_SOURCE_DATE:=2020-07-01
-PKG_SOURCE_VERSION:=181a00a7f59c66b0f88105c23adc4a5808aa5357
+PKG_SOURCE_DATE:=2020-09-04
+PKG_SOURCE_VERSION:=d5ee78f1cd1505cba1b2eec786a9341d1f5acfcc
 
 PKG_MAINTAINER:=Richard Thanki <rich@janga.la>
 
@@ -36,12 +36,14 @@ endef
 define Package/jng-main/install
 	$(INSTALL_DIR) $(1)/root/getboxtoy/main
 	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/etc/jng/words
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/getbox.lua $(1)/root/getboxtoy/main/getbox
 	$(CP) $(PKG_BUILD_DIR)/config.default $(1)/root/getboxtoy/main
 	$(CP) $(PKG_BUILD_DIR)/modules $(1)/root/getboxtoy/main
 	$(CP) $(PKG_BUILD_DIR)/etc $(1)/root/getboxtoy/main/
 	$(INSTALL_BIN) ./files/getbox.init $(1)/etc/init.d/getbox
+	$(CP) ./files/words/* $(1)/etc/jng/words/
 endef
 
 define Package/jng-main/postinst
