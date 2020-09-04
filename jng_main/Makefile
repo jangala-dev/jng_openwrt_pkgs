@@ -7,7 +7,7 @@ PKG_RELEASE:=2
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git@bitbucket.org:jangala/main.git
 PKG_SOURCE_DATE:=2020-09-04
-PKG_SOURCE_VERSION:=d5ee78f1cd1505cba1b2eec786a9341d1f5acfcc
+PKG_SOURCE_VERSION:=cd9082c67bad06dbf9ad1d1a85c1d94989179865
 
 PKG_MAINTAINER:=Richard Thanki <rich@janga.la>
 
