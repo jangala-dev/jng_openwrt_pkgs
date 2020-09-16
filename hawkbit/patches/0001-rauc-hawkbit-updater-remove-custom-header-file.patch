@@ -1,0 +1,24 @@
+From b917c55f989ea7c020bd111fa63253bb7dbfa184 Mon Sep 17 00:00:00 2001
+From: Wambui Karuga <wambui@janga.la>
+Date: Wed, 16 Sep 2020 07:47:14 +0000
+Subject: [PATCH] rauc-hawkbit-updater: remove custom header file.
+
+Signed-off-by: Wambui Karuga <wambui@janga.la>
+---
+ src/hawkbit-client.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/hawkbit-client.c b/src/hawkbit-client.c
+index a23a9dc..4d77a80 100644
+--- a/src/hawkbit-client.c
++++ b/src/hawkbit-client.c
+@@ -44,7 +44,6 @@
+ #include <glib/gstdio.h>
+ #include <json-glib/json-glib.h>
+ #include <libgen.h>
+-#include <bits/types/struct_tm.h>
+ #include <gio/gio.h>
+
+ #include "config-file.h"
+--
+2.17.1

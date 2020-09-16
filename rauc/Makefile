@@ -22,7 +22,7 @@ define Package/rauc
 	SECTION:=core
 	CATEGORY:=JNG
 	TITLE:=Robust Auto-Update Controller
-	DEPENDS:=+glib2 +libopenssl +libcurl
+	DEPENDS:=+glib2 +libopenssl +libcurl +libiconv-full
 endef
 
 define Package/rauc/description
@@ -37,6 +37,12 @@ define Build/Configure
 		--disable-json \
 		--disable-service)
 endef
+
+TARGET_LDFLAGS += \
+	-L$(STAGING_DIR)/usr/lib/libiconv-full/lib/
+
+MAKE_FLAGS += \
+	LDFLAGS="$(TARGET_LDFLAGS)"
 
 define Build/Compile
 endef
