@@ -19,9 +19,9 @@ define Build/Prepare
 endef
 
 define Package/hawkbit
-        SECTION:=core
-        CATEGORY:=JNG
-        TITLE:=RAUC Hawkbit Updater
+	SECTION:=core
+	CATEGORY:=JNG
+	TITLE:=RAUC Hawkbit Updater
 	DEPENDS:=+json-glib \
 		+libiconv-full \
 		+libcurl \
@@ -33,7 +33,6 @@ TARGET_LDFLAGS += \
 	-L$(STAGING_DIR)/usr/lib/libiconv-full/lib/
 
 MAKE_FLAGS += \
-        CFLAGS="$(TARGET_CFLAGS)" \
 	LDFLAGS="$(TARGET_LDFLAGS)"
 
 define Package/hawkbit/description
