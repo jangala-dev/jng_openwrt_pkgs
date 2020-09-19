@@ -44,11 +44,11 @@ TARGET_CFLAGS += \
 define Build/Compile
   cd $(PKG_BUILD_DIR) && \
   luarocks make --pack-binary-rock bit32-scm-1.rockspec \
-    LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
-    LUA_PKGNAME=lua5.1 \
+	LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
+	LUA_PKGNAME=lua5.1 \
 	CFLAGS="$(TARGET_CFLAGS) $(FPIC)" \
 	LDFLAGS="$(TARGET_LDFLAGS)" \
-    CC="$(TARGET_CC)" LD="$(TARGET_CC)"
+	CC="$(TARGET_CC)" LD="$(TARGET_CC)"
 endef
 
 define Package/$(PKG_NAME)/install
