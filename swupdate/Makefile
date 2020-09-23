@@ -30,6 +30,7 @@ endef
 
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include/mtd \
+	-I$(STAGING_DIR)/usr/include/mtd/mtd \
 	-I$(STAGING_DIR)/usr/include
 TARGET_LDFLAGS += \
 	-L$(BUILD_DIR)/mtd-utils-2.1.2
