@@ -23,7 +23,10 @@ define Package/rauc
 	CATEGORY:=JNG
 	TITLE:=Robust Auto-Update Controller
 	DEPENDS:=+glib2 \
-		+dbus
+		+dbus \
+		+libcurl \
+		+json-glib \
+		+libopenssl
 endef
 
 define Package/rauc/description
