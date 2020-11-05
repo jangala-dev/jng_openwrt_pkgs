@@ -18,14 +18,14 @@ include $(INCLUDE_DIR)/package.mk
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/mtd/
-	$(CP) -R $(TOPDIR)/build_dir/host/mtd-utils-2.1.1/include/* $(STAGING_DIR)/usr/include/mtd/
+	$(CP) -R $(TOPDIR)/build_dir/host/mtd-utils-2.*/include/* $(STAGING_DIR)/usr/include/mtd/
 endef
 
 define Package/swupdate
 	SECTION:=core
 	CATEGORY:=JNG
 	TITLE:=SWUpdate
-	DEPENDS:=+ubi-utils +libconfig +liblua +zlib
+	DEPENDS:=+ubi-utils +libconfig +liblua +zlib +libubootenv
 endef
 
 TARGET_CFLAGS += \
