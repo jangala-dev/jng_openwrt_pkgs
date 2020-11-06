@@ -37,6 +37,7 @@ define Package/jng-main/install
 	$(INSTALL_DIR) $(1)/root/getboxtoy/main
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/jng/words
+	$(INSTALL_DIR) $(1)/etc/jng/hosts
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/getbox.lua $(1)/root/getboxtoy/main/getbox
 	$(CP) $(PKG_BUILD_DIR)/config.default $(1)/root/getboxtoy/main
@@ -44,6 +45,7 @@ define Package/jng-main/install
 	$(CP) $(PKG_BUILD_DIR)/etc $(1)/root/getboxtoy/main/
 	$(INSTALL_BIN) ./files/getbox.init $(1)/etc/init.d/getbox
 	$(CP) ./files/words/* $(1)/etc/jng/words/
+	$(CP) ./files/hosts/* $(1)/etc/jng/hosts/
 endef
 
 define Package/jng-main/postinst
