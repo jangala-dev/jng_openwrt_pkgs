@@ -1,0 +1,40 @@
+From d8654e912a411047838b745f200b5cccb68ab7b3 Mon Sep 17 00:00:00 2001
+From: Wambui Karuga <wambui@janga.la>
+Date: Fri, 6 Nov 2020 08:47:38 +0000
+Subject: [PATCH] package/mtd-utils: remove dependency on NAND support for
+ ubi-utils
+
+This enables building of swupdate.
+
+Signed-off-by: Wambui Karuga <wambui@janga.la>
+---
+ package/utils/mtd-utils/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/package/utils/mtd-utils/Makefile b/package/utils/mtd-utils/Makefile
+index 6e5e72783f..a485d9dba3 100644
+--- a/package/utils/mtd-utils/Makefile
++++ b/package/utils/mtd-utils/Makefile
+@@ -33,7 +33,6 @@ define Package/mtd-utils/Default
+   SECTION:=utils
+   CATEGORY:=Utilities
+   URL:=http://www.linux-mtd.infradead.org/
+-  DEPENDS:=@NAND_SUPPORT
+ endef
+ 
+ define Package/ubi-utils
+@@ -46,8 +45,9 @@ define Package/ubi-utils/description
+ endef
+ 
+ define Package/nand-utils
+- $(call Package/mtd-utils/Default)
+-  TITLE:=Utilities for nand flash erase/read/write/test
++$(call Package/mtd-utils/Default)
++DEPENDS:=@NAND_SUPPORT
++TITLE:=Utilities for nand flash erase/read/write/test
+ endef
+ 
+ define Package/nand-utils/description
+-- 
+2.17.1
+
