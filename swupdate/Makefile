@@ -12,7 +12,7 @@ PKG_SOURCE_VERSION:=1a6dfbb5a0be978ac1a159758e278ab4d44167e2
 
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
-PKG_BUILD_DEPENDS:=ubi-utils
+PKG_BUILD_DEPENDS:=mtd-utils
 include $(INCLUDE_DIR)/package.mk
 
 define Build/Prepare
