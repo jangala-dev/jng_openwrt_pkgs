@@ -25,7 +25,7 @@ define Package/swupdate
 	SECTION:=core
 	CATEGORY:=JNG
 	TITLE:=SWUpdate
-	DEPENDS:=+ubi-utils +libconfig +liblua +libubootenv +zlib
+	DEPENDS:=+ubi-utils +libconfig +liblua +libubootenv +libcurl +libjson-c  +zlib
 endef
 
 TARGET_CFLAGS += \
