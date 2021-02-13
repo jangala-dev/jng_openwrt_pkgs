@@ -18,7 +18,7 @@ include $(INCLUDE_DIR)/package.mk
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/mtd/
-	$(CP) -R $(TOPDIR)/build_dir/host/mtd-utils-2.1.2/include/* $(STAGING_DIR)/usr/include/mtd/
+	$(CP) -R $(TOPDIR)/build_dir/host/mtd-utils-2.1.2/include/* $(STAGING_DIR)/usr/include/
 endef
 
 define Package/swupdate
