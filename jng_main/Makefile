@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=jng-main
-PKG_VERSION:=0.0.2-rc1
-PKG_RELEASE:=2
+PKG_VERSION:=0.0.3-rc1
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git@bitbucket.org:jangala/main.git
-PKG_SOURCE_DATE:=2020-09-04
-PKG_SOURCE_VERSION:=cd9082c67bad06dbf9ad1d1a85c1d94989179865
+PKG_SOURCE_DATE:=2021-05-20
+PKG_SOURCE_VERSION:=b7dcc5c818f2e871ce83d2a2b999ddbeca2e11ce
 
 PKG_MAINTAINER:=Richard Thanki <rich@janga.la>
 
