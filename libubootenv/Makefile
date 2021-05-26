@@ -1,12 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libubootenv
-PKG_VERSION:=v0.3.1
-PKG_RELEASE:=2
+PKG_VERSION:=0.3.2
+PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/sbabic/libubootenv.git
-PKG_SOURCE_VERSION:=824551ac77bab1d0f7ae34d7a7c77b155240e754
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/sbabic/libubootenv/archive/v$(PKG_VERSION)
+PKG_HASH:=662ef1efe058e2d5a07498f7b63aff7b2a521c0f6f199c499fb3ae84b54121bd
+
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
 CMAKE_INSTALL:=1
