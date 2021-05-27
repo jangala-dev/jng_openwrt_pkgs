@@ -44,7 +44,7 @@ define Package/lua-lumen/install
 	$(CP) $(PKG_BUILD_DIR)/lib/*.lua 							$(1)/usr/lib/lua/lumen/lib
 	$(CP) $(PKG_BUILD_DIR)/tasks/*.lua 							$(1)/usr/lib/lua/lumen/tasks
 	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/*.lua 				$(1)/usr/lib/lua/lumen/tasks/http-server
-	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/websocket/*.lua 	$(1)/usr/lib/lua/lumen/tasks/http-server/websocket
+	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/websocket/*.lua	$(1)/usr/lib/lua/lumen/tasks/http-server/websocket
 	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/www/* 				$(1)/usr/lib/lua/lumen/tasks/http-server/www
 
 
