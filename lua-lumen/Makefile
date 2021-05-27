@@ -40,12 +40,12 @@ define Package/lua-lumen/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/tasks/http-server/websocket
 	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/tasks/http-server/www
 
-	$(CP) -R $(PKG_BUILD_DIR)/*.lua 							$(1)/usr/lib/lua/lumen/
-	$(CP) -R $(PKG_BUILD_DIR)/lib/*.lua 						$(1)/usr/lib/lua/lumen/lib
-	$(CP) -R $(PKG_BUILD_DIR)/tasks/*.lua 						$(1)/usr/lib/lua/lumen/tasks
-	$(CP) -R $(PKG_BUILD_DIR)/tasks/http-server/*.lua 			$(1)/usr/lib/lua/lumen/tasks/http-server
-	$(CP) -R $(PKG_BUILD_DIR)/tasks/http-server/websocket/*.lua $(1)/usr/lib/lua/lumen/tasks/http-server/websocket
-	$(CP) -R $(PKG_BUILD_DIR)/tasks/http-server/www/*.lua 		$(1)/usr/lib/lua/lumen/tasks/http-server/www
+	$(CP) $(PKG_BUILD_DIR)/*.lua 								$(1)/usr/lib/lua/lumen/
+	$(CP) $(PKG_BUILD_DIR)/lib/*.lua 							$(1)/usr/lib/lua/lumen/lib
+	$(CP) $(PKG_BUILD_DIR)/tasks/*.lua 							$(1)/usr/lib/lua/lumen/tasks
+	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/*.lua 				$(1)/usr/lib/lua/lumen/tasks/http-server
+	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/websocket/*.lua 	$(1)/usr/lib/lua/lumen/tasks/http-server/websocket
+	$(CP) $(PKG_BUILD_DIR)/tasks/http-server/www/* 				$(1)/usr/lib/lua/lumen/tasks/http-server/www
 
 
 endef
