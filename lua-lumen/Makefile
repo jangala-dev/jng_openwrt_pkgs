@@ -34,6 +34,11 @@ endef
 define Package/lua-lumen/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen
+	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/lib
+	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/tasks
+	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/http-server
+	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/websocket
+	$(INSTALL_DIR) $(1)/usr/lib/lua/lumen/www
 
 	$(CP) -R $(PKG_BUILD_DIR)/*.lua $(1)/usr/lib/lua/lumen/
 endef
