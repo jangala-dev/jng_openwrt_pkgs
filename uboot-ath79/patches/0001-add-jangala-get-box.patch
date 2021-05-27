@@ -1,0 +1,429 @@
+diff --git a/arch/mips/dts/Makefile b/arch/mips/dts/Makefile
+index 215283cfa0..e94016a919 100644
+--- a/arch/mips/dts/Makefile
++++ b/arch/mips/dts/Makefile
+@@ -4,6 +4,7 @@ dtb-$(CONFIG_TARGET_AP121) += ap121.dtb
+ dtb-$(CONFIG_TARGET_AP143) += ap143.dtb
+ dtb-$(CONFIG_TARGET_AP152) += ap152.dtb
+ dtb-$(CONFIG_TARGET_BOSTON) += img,boston.dtb
++dtb-$(CONFIG_TARGET_GET_BOX) += jangala,get-box.dtb
+ dtb-$(CONFIG_TARGET_MALTA) += mti,malta.dtb
+ dtb-$(CONFIG_TARGET_PIC32MZDASK) += pic32mzda_sk.dtb
+ dtb-$(CONFIG_TARGET_XILFPGA) += nexys4ddr.dtb
+diff --git a/arch/mips/dts/jangala,get-box.dts b/arch/mips/dts/jangala,get-box.dts
+new file mode 100644
+index 0000000000..0a83be8579
+--- /dev/null
++++ b/arch/mips/dts/jangala,get-box.dts
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (C) 2015-2016 Wills Wang <wills.wang@live.com> & 2020 Rich Thanki <rich@janga.la>
++ */
++
++/dts-v1/;
++#include "qca953x.dtsi"
++
++
++/ {
++	model = "Get Box";
++	compatible = "jangala,get-box", "qca,qca953x";
++
++	aliases {
++		spi0 = &spi0;
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++};
++
++&xtal {
++	clock-frequency = <25000000>;
++};
++
++&uart0 {
++	status = "okay";
++};
++
++&spi0 {
++	spi-max-frequency = <25000000>;
++	status = "okay";
++	spi-flash@0 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "jedec,spi-nor";
++		memory-map = <0x9f000000 0x00800000>;
++		spi-max-frequency = <25000000>;
++		reg = <0>;
++	};
++};
++&ehci0 {
++	status = "okay";
++};
++
++&gmac1 {
++	status = "okay";
++	phy-mode = "rgmii";
++};
+diff --git a/arch/mips/dts/qca953x.dtsi b/arch/mips/dts/qca953x.dtsi
+index 90d34ddbbf..54d9186b1a 100644
+--- a/arch/mips/dts/qca953x.dtsi
++++ b/arch/mips/dts/qca953x.dtsi
+@@ -57,6 +57,13 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 
++			ehci0: ehci@1b000100 {
++				compatible = "generic-ehci";
++				reg = <0x1b000100 0x100>;
++
++				status = "disabled";
++			};
++
+ 			uart0: uart@18020000 {
+ 				compatible = "ns16550";
+ 				reg = <0x18020000 0x20>;
+diff --git a/arch/mips/mach-ath79/Kconfig b/arch/mips/mach-ath79/Kconfig
+index bdb23b5765..ebced890b3 100644
+--- a/arch/mips/mach-ath79/Kconfig
++++ b/arch/mips/mach-ath79/Kconfig
+@@ -57,6 +57,10 @@ config TARGET_AP152
+ 	bool "AP152 Reference Board"
+ 	select SOC_QCA956X
+ 
++config TARGET_GET_BOX
++	bool "Jangala Get Box Board"
++	select SOC_QCA953X
++
+ config BOARD_TPLINK_WDR4300
+ 	bool "TP-Link WDR4300 Board"
+ 	select SOC_AR934X
+@@ -66,6 +70,7 @@ endchoice
+ source "board/qca/ap121/Kconfig"
+ source "board/qca/ap143/Kconfig"
+ source "board/qca/ap152/Kconfig"
++source "board/jangala/get-box/Kconfig"
+ source "board/tplink/wdr4300/Kconfig"
+ 
+ endmenu
+diff --git a/arch/mips/mach-ath79/reset.c b/arch/mips/mach-ath79/reset.c
+index 6cd5e77fd1..ce7503c8d1 100644
+--- a/arch/mips/mach-ath79/reset.c
++++ b/arch/mips/mach-ath79/reset.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <common.h>
++#include <clock_legacy.h>
+ #include <linux/bitops.h>
+ #include <linux/delay.h>
+ #include <linux/errno.h>
+@@ -478,11 +479,23 @@ static int usb_reset_ar934x(void __iomem *reset_regs)
+ 
+ static int usb_reset_qca953x(void __iomem *reset_regs)
+ {
++	u32 bootstrap;
++	u32 val;
+ 	void __iomem *pregs = map_physmem(AR71XX_PLL_BASE, AR71XX_PLL_SIZE,
+ 					  MAP_NOCACHE);
+ 
+-	clrsetbits_be32(pregs + QCA953X_PLL_SWITCH_CLOCK_CONTROL_REG,
+-			0xf00, 0x200);
++	val = readl(pregs + QCA953X_PLL_SWITCH_CLOCK_CONTROL_REG);
++	val &= ~(((1 << (8)) - 1) << 4);
++
++	bootstrap = ath79_get_bootstrap();
++	if (bootstrap & QCA953X_BOOTSTRAP_REF_CLK_40) {
++		val |= (0x5 << 8);
++	}
++	else {
++		val |= (0x2 << 8);
++	}
++
++	writel(val, pregs + QCA953X_PLL_SWITCH_CLOCK_CONTROL_REG);
+ 	mdelay(10);
+ 
+ 	/* Ungate the USB block */
+@@ -518,7 +531,6 @@ int ath79_usb_reset(void)
+ 	 * NOTE: This write into an undocumented register in mandatory to
+ 	 *       get the USB controller operational in BigEndian mode.
+ 	 */
+-	writel(0xf0000, usbc_regs + AR71XX_USB_CTRL_REG_CONFIG);
+ 
+ 	if (soc_is_ar933x())
+ 		return usb_reset_ar933x(reset_regs);
+diff --git a/board/jangala/get-box/Kconfig b/board/jangala/get-box/Kconfig
+new file mode 100644
+index 0000000000..890c5acd4c
+--- /dev/null
++++ b/board/jangala/get-box/Kconfig
+@@ -0,0 +1,27 @@
++if TARGET_GET_BOX
++
++config SYS_VENDOR
++	default "jangala"
++
++config SYS_BOARD
++	default "get-box"
++
++config SYS_CONFIG_NAME
++	default "get-box"
++
++config SYS_TEXT_BASE
++	default 0x9f000000
++
++config SYS_DCACHE_SIZE
++	default 32768
++
++config SYS_DCACHE_LINE_SIZE
++	default 32
++
++config SYS_ICACHE_SIZE
++	default 65536
++
++config SYS_ICACHE_LINE_SIZE
++	default 32
++
++endif
+diff --git a/board/jangala/get-box/MAINTAINERS b/board/jangala/get-box/MAINTAINERS
+new file mode 100644
+index 0000000000..795de3214a
+--- /dev/null
++++ b/board/jangala/get-box/MAINTAINERS
+@@ -0,0 +1,6 @@
++get-box BOARD
++M:	Rich Thanki <rich@janga.la>
++S:	Maintained
++F:	board/jangala/get-box/
++F:	include/configs/get-box.h
++F:	configs/get-box_defconfig
+diff --git a/board/jangala/get-box/Makefile b/board/jangala/get-box/Makefile
+new file mode 100644
+index 0000000000..7ef899fd4d
+--- /dev/null
++++ b/board/jangala/get-box/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0+
++
++	obj-y	= get-box.o
+diff --git a/board/jangala/get-box/get-box.c b/board/jangala/get-box/get-box.c
+new file mode 100644
+index 0000000000..8ad761b2b0
+--- /dev/null
++++ b/board/jangala/get-box/get-box.c
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (C) 2015-2016 Wills Wang <wills.wang@live.com>
++ */
++#include <common.h>
++#include <init.h>
++#include <log.h>
++#include <asm/io.h>
++#include <asm/addrspace.h>
++#include <asm/types.h>
++#include <linux/bitops.h>
++#include <linux/delay.h>
++#include <mach/ath79.h>
++#include <mach/ar71xx_regs.h>
++#include <mach/ddr.h>
++#include <debug_uart.h>
++
++static void get_box_usb_start(void)
++{
++	u32 val = 561;
++	void __iomem *pregs = map_physmem(AR71XX_PLL_BASE, AR71XX_PLL_SIZE,
++					  MAP_NOCACHE);
++
++	log_info("Writing %u value to register.\n", val);
++	writel(val, pregs + QCA953X_PLL_SWITCH_CLOCK_CONTROL_REG);
++	mdelay(10);
++}
++
++#ifdef CONFIG_DEBUG_UART_BOARD_INIT
++void board_debug_uart_init(void)
++{
++	void __iomem *regs;
++	u32 val;
++
++	regs = map_physmem(AR71XX_GPIO_BASE, AR71XX_GPIO_SIZE,
++			   MAP_NOCACHE);
++
++	/*
++	 * GPIO9 as input, GPIO10 as output
++	 */
++	val = readl(regs + AR71XX_GPIO_REG_OE);
++	val |= QCA953X_GPIO(9);
++	val &= ~QCA953X_GPIO(10);
++	writel(val, regs + AR71XX_GPIO_REG_OE);
++
++	/*
++	 * Enable GPIO10 as UART0_SOUT
++	 */
++	val = readl(regs + QCA953X_GPIO_REG_OUT_FUNC2);
++	val &= ~QCA953X_GPIO_MUX_MASK(16);
++	val |= QCA953X_GPIO_OUT_MUX_UART0_SOUT << 16;
++	writel(val, regs + QCA953X_GPIO_REG_OUT_FUNC2);
++
++	/*
++	 * Enable GPIO9 as UART0_SIN
++	 */
++	val = readl(regs + QCA953X_GPIO_REG_IN_ENABLE0);
++	val &= ~QCA953X_GPIO_MUX_MASK(8);
++	val |= QCA953X_GPIO_IN_MUX_UART0_SIN << 8;
++	writel(val, regs + QCA953X_GPIO_REG_IN_ENABLE0);
++
++	/*
++	 * Enable GPIO10 output
++	 */
++	val = readl(regs + AR71XX_GPIO_REG_OUT);
++	val |= QCA953X_GPIO(10);
++	writel(val, regs + AR71XX_GPIO_REG_OUT);
++}
++#endif
++
++int board_early_init_f(void)
++{
++	ddr_init();
++	get_box_usb_start();
++	ath79_eth_reset();
++	return 0;
++}
+diff --git a/configs/get-box_defconfig b/configs/get-box_defconfig
+new file mode 100644
+index 0000000000..85f0b060d8
+--- /dev/null
++++ b/configs/get-box_defconfig
+@@ -0,0 +1,73 @@
++CONFIG_MIPS=y
++CONFIG_SYS_TEXT_BASE=0x9F000000
++CONFIG_SYS_MALLOC_F_LEN=0x800
++CONFIG_SYS_MEMTEST_START=0x80100000
++CONFIG_SYS_MEMTEST_END=0x83f00000
++CONFIG_ENV_SIZE=0x10000
++CONFIG_ENV_OFFSET=0x40000
++CONFIG_ENV_SECT_SIZE=0x10000
++CONFIG_DEBUG_UART_BOARD_INIT=y
++CONFIG_DEBUG_UART_BASE=0xb8020000
++CONFIG_DEBUG_UART_CLOCK=25000000
++CONFIG_ARCH_ATH79=y
++CONFIG_TARGET_GET_BOX=y
++CONFIG_DEFAULT_DEVICE_TREE="jangala,get-box"
++CONFIG_DEBUG_UART=y
++CONFIG_BOOTDELAY=3
++CONFIG_USE_BOOTARGS=y
++CONFIG_BOOTARGS="console=ttyS0,115200 root=/dev/mtdblock3 rootfstype=squashfs"
++CONFIG_DISPLAY_CPUINFO=y
++CONFIG_BOARD_EARLY_INIT_F=y
++# CONFIG_AUTO_COMPLETE is not set
++# CONFIG_SYS_LONGHELP is not set
++CONFIG_SYS_PROMPT="get-box # "
++# CONFIG_CMD_BDI is not set
++# CONFIG_CMD_CONSOLE is not set
++# CONFIG_BOOTM_NETBSD is not set
++# CONFIG_BOOTM_PLAN9 is not set
++# CONFIG_BOOTM_RTEMS is not set
++# CONFIG_BOOTM_VXWORKS is not set
++# CONFIG_CMD_ELF is not set
++# CONFIG_CMD_XIMG is not set
++# CONFIG_CMD_EXPORTENV is not set
++# CONFIG_CMD_IMPORTENV is not set
++# CONFIG_CMD_EDITENV is not set
++# CONFIG_CMD_CRC32 is not set
++CONFIG_CMD_MEMTEST=y
++# CONFIG_CMD_FLASH is not set
++# CONFIG_CMD_LOADS is not set
++CONFIG_CMD_MISC=y
++CONFIG_CMD_SPI=y
++# CONFIG_CMD_ITEST is not set
++# CONFIG_CMD_NFS is not set
++CONFIG_CMD_MTDPARTS=y
++CONFIG_MTDIDS_DEFAULT="nor0=spi-flash.0"
++CONFIG_MTDPARTS_DEFAULT="mtdparts=spi-flash.0:256k(u-boot)ro,64k(u-boot-env),2304k(kernel-a),5568k(rootfs-a),2304k(kernel-b),5568k(rootfs-b),256k(data),64k(art)"
++# CONFIG_ISO_PARTITION is not set
++CONFIG_OF_EMBED=y
++CONFIG_ENV_IS_IN_SPI_FLASH=y
++CONFIG_USE_ENV_SPI_MAX_HZ=y
++CONFIG_ENV_SPI_MAX_HZ=25000000
++CONFIG_ENV_ADDR=0x40000
++CONFIG_SYS_RELOC_GD_ENV_ADDR=y
++CONFIG_MISC=y
++CONFIG_MTD=y
++CONFIG_DM_SPI_FLASH=y
++CONFIG_SPI_FLASH_ATMEL=y
++CONFIG_SPI_FLASH_EON=y
++CONFIG_SPI_FLASH_GIGADEVICE=y
++CONFIG_SPI_FLASH_MACRONIX=y
++CONFIG_SPI_FLASH_SPANSION=y
++CONFIG_SPI_FLASH_STMICRO=y
++CONFIG_SPI_FLASH_SST=y
++CONFIG_SPI_FLASH_WINBOND=y
++CONFIG_SPI_FLASH_DATAFLASH=y
++CONFIG_SPI_FLASH_MTD=y
++CONFIG_PINCTRL=y
++CONFIG_DM_SERIAL=y
++CONFIG_DEBUG_UART_SHIFT=2
++CONFIG_SYS_NS16550=y
++CONFIG_SPI=y
++CONFIG_DM_SPI=y
++CONFIG_ATH79_SPI=y
++CONFIG_LZMA=y
+diff --git a/env_variables.md b/env_variables.md
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/include/configs/get-box.h b/include/configs/get-box.h
+new file mode 100644
+index 0000000000..2d9d71843e
+--- /dev/null
++++ b/include/configs/get-box.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * Copyright (C) 2020 Rich Thanki <rich@janga.la>
++ */
++
++#ifndef __CONFIG_H
++#define __CONFIG_H
++
++#define CONFIG_SYS_HZ                   1000
++#define CONFIG_SYS_MHZ                  325
++#define CONFIG_SYS_MIPS_TIMER_FREQ      (CONFIG_SYS_MHZ * 1000000)
++
++#define CONFIG_SYS_MONITOR_BASE         CONFIG_SYS_TEXT_BASE
++
++#define CONFIG_SYS_MALLOC_LEN           0x40000
++#define CONFIG_SYS_BOOTPARAMS_LEN       0x20000
++
++#define CONFIG_SYS_SDRAM_BASE           0x80000000
++#define CONFIG_SYS_LOAD_ADDR            0x81000000
++
++#define CONFIG_SYS_INIT_RAM_ADDR        0xbd000000
++#define CONFIG_SYS_INIT_RAM_SIZE        0x2000
++#define CONFIG_SYS_INIT_SP_ADDR \
++	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_RAM_SIZE - 1)
++
++/*
++ * Serial Port
++ */
++#define CONFIG_SYS_NS16550_CLK          25000000
++#define CONFIG_SYS_BAUDRATE_TABLE \
++	{9600, 19200, 38400, 57600, 115200}
++
++#define CONFIG_BOOTCOMMAND              "sf probe;" \
++					"mtdparts default;" \
++					"bootm 0x9F050000 || bootm 0x9F800000 || bootm 0x9FE80000"
++
++/* Miscellaneous configurable options */
++
++/*
++ * Diagnostics
++ */
++
++/* USB, USB storage, USB ethernet */
++#define CONFIG_EHCI_MMIO_BIG_ENDIAN
++#define CONFIG_EHCI_DESC_BIG_ENDIAN
++#define CONFIG_EHCI_IS_TDI
++
++#endif  /* __CONFIG_H */
