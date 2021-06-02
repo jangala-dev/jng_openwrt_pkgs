@@ -1,5 +1,32 @@
+From 325a5a5f8c08beb41f4080c6d9e184ffaa853b9d Mon Sep 17 00:00:00 2001
+From: Wambui Karuga <wambui@karuga.org>
+Date: Wed, 2 Jun 2021 12:20:42 +0300
+Subject: [PATCH] u-boot/ath79: add Jangala Get-Box as a target.
+
+Signed-off-by: Wambui Karuga <wambui@karuga.org>
+---
+ arch/mips/dts/Makefile            |  1 +
+ arch/mips/dts/jangala,get-box.dts | 51 +++++++++++++++++++++
+ arch/mips/dts/qca953x.dtsi        |  7 +++
+ arch/mips/mach-ath79/Kconfig      |  5 +++
+ arch/mips/mach-ath79/reset.c      | 18 ++++++--
+ board/jangala/get-box/Kconfig     | 27 +++++++++++
+ board/jangala/get-box/MAINTAINERS |  6 +++
+ board/jangala/get-box/Makefile    |  3 ++
+ board/jangala/get-box/get-box.c   | 75 +++++++++++++++++++++++++++++++
+ configs/get-box_defconfig         | 73 ++++++++++++++++++++++++++++++
+ include/configs/get-box.h         | 48 ++++++++++++++++++++
+ 11 files changed, 311 insertions(+), 3 deletions(-)
+ create mode 100644 arch/mips/dts/jangala,get-box.dts
+ create mode 100644 board/jangala/get-box/Kconfig
+ create mode 100644 board/jangala/get-box/MAINTAINERS
+ create mode 100644 board/jangala/get-box/Makefile
+ create mode 100644 board/jangala/get-box/get-box.c
+ create mode 100644 configs/get-box_defconfig
+ create mode 100644 include/configs/get-box.h
+
 diff --git a/arch/mips/dts/Makefile b/arch/mips/dts/Makefile
-index 215283cfa0..e94016a919 100644
+index 7c42923134..4c5d1eb7e4 100644
 --- a/arch/mips/dts/Makefile
 +++ b/arch/mips/dts/Makefile
 @@ -4,6 +4,7 @@ dtb-$(CONFIG_TARGET_AP121) += ap121.dtb
@@ -210,17 +237,16 @@ index 0000000000..7ef899fd4d
 +	obj-y	= get-box.o
 diff --git a/board/jangala/get-box/get-box.c b/board/jangala/get-box/get-box.c
 new file mode 100644
-index 0000000000..8ad761b2b0
+index 0000000000..c5b185c18c
 --- /dev/null
 +++ b/board/jangala/get-box/get-box.c
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,75 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Copyright (C) 2015-2016 Wills Wang <wills.wang@live.com>
 + */
 +#include <common.h>
 +#include <init.h>
-+#include <log.h>
 +#include <asm/io.h>
 +#include <asm/addrspace.h>
 +#include <asm/types.h>
@@ -237,7 +263,6 @@ index 0000000000..8ad761b2b0
 +	void __iomem *pregs = map_physmem(AR71XX_PLL_BASE, AR71XX_PLL_SIZE,
 +					  MAP_NOCACHE);
 +
-+	log_info("Writing %u value to register.\n", val);
 +	writel(val, pregs + QCA953X_PLL_SWITCH_CLOCK_CONTROL_REG);
 +	mdelay(10);
 +}
@@ -370,9 +395,6 @@ index 0000000000..85f0b060d8
 +CONFIG_DM_SPI=y
 +CONFIG_ATH79_SPI=y
 +CONFIG_LZMA=y
-diff --git a/env_variables.md b/env_variables.md
-new file mode 100644
-index 0000000000..e69de29bb2
 diff --git a/include/configs/get-box.h b/include/configs/get-box.h
 new file mode 100644
 index 0000000000..2d9d71843e
@@ -427,3 +449,6 @@ index 0000000000..2d9d71843e
 +#define CONFIG_EHCI_IS_TDI
 +
 +#endif  /* __CONFIG_H */
+-- 
+2.28.0
+
