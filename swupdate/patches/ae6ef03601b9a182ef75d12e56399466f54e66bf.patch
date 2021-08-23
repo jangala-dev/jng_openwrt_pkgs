@@ -1,0 +1,25 @@
+From ae6ef03601b9a182ef75d12e56399466f54e66bf Mon Sep 17 00:00:00 2001
+From: Stefano Babic <sbabic@denx.de>
+Date: Tue, 15 Jun 2021 18:54:09 +0200
+Subject: [PATCH] suricatta: wrong exit from server.send_target_data
+
+Both continue and break are set - drop the continue to avoid endless
+loop if no server is found.
+
+Signed-off-by: Stefano Babic <sbabic@denx.de>
+---
+ suricatta/suricatta.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/suricatta/suricatta.c b/suricatta/suricatta.c
+index c7dfa653..59b73c47 100644
+--- a/suricatta/suricatta.c
++++ b/suricatta/suricatta.c
+@@ -226,7 +226,6 @@ int start_suricatta(const char *cfgfname, int argc, char *argv[])
+ 			case SERVER_ID_REQUESTED:
+ 				server.send_target_data();
+ 				trigger = true;
+-				continue;
+ 				break;
+ 			case SERVER_EINIT:
+ 				break;
