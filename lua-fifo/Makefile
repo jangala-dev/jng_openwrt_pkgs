@@ -5,7 +5,7 @@ PKG_VERSION:=0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=fifo.lua-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/fifo.lua/tar.gz/refs/tags/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/fifo.lua/tar.gz/refs/tags/$(PKG_VERSION)?
 PKG_HASH:=85cad0c2f9eac1cd3e08c5134feb655e0b928e1e22363c3ef3293a194c0eb53f
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
