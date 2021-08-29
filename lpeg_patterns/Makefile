@@ -4,8 +4,8 @@ PKG_NAME:=lpeg_patterns
 PKG_VERSION:=0.5
 PKG_RELEASE:=1
 
-PKG_SOURCE:=git
-PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lpeg_patterns/tar.gz/refs/tags/v$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lpeg_patterns/tar.gz/refs/tags/v$(PKG_VERSION)?
 PKG_HASH:=d1fabf897024822eb2544fd811fc80b85655972804511b9fd8cfea377fb16e0e
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 

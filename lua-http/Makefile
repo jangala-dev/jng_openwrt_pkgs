@@ -5,7 +5,7 @@ PKG_VERSION:=0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lua-http/tar.gz/refs/tags/v$(PKG_VERSION)
+PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lua-http/tar.gz/refs/tags/v$(PKG_VERSION)?
 PKG_HASH:=d2e3cb9bc04cab70ac4f19351bc74b0dcd8b16cfc2563aa77256eb3a43b3b9e0
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
