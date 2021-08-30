@@ -12,18 +12,15 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_MAINTAINER:=Rich <rich@janga.la>
 PKG_LICENSE:=MIT
 
-PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-binaryheap
-	SECTION:=core
-	CATEGORY:=JNG
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
 	TITLE:=lua-binaryheap
 	DEPENDS:=+lua
 	PKGARCH:=all
-	MAINTAINER:=Rich <rich@janga.la>
 endef
 
 define Package/lua-binaryheap/description
