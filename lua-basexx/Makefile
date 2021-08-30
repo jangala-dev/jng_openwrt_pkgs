@@ -7,7 +7,7 @@ PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/aiq/basexx/tar.gz/refs/tags/v$(PKG_VERSION)?
 PKG_HASH:=ff62b00446df1181a9cd20ba970c3c8493165d262142e10d069ee3de6337dfe6
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Rich <rich@janga.la>
 PKG_LICENSE:=MIT
@@ -32,7 +32,7 @@ define Build/Compile
 endef
 
 define Package/lua-basexx/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/
+	$(INSTALL_DIR) $(1)/usr/lib/lua
 	$(INSTALL_DIR) $(1)/usr/lib/lua/basexx
 
 	$(CP) $(PKG_BUILD_DIR)/lib/*.lua 	$(1)/usr/lib/lua/basexx/

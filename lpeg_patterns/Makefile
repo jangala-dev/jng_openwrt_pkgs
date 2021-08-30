@@ -7,7 +7,7 @@ PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lpeg_patterns/tar.gz/refs/tags/v$(PKG_VERSION)?
 PKG_HASH:=d1fabf897024822eb2544fd811fc80b85655972804511b9fd8cfea377fb16e0e
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Rich <rich@janga.la>
 PKG_LICENSE:=MIT
@@ -32,8 +32,9 @@ define Build/Compile
 endef
 
 define Package/lpeg_patterns/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/
-	$(CP) $(PKG_BUILD_DIR)/lpeg_patterns $(1)/usr/lib/lua
+	$(INSTALL_DIR) $(1)/usr/lib/lua
+	
+	$(CP) $(PKG_BUILD_DIR)/lpeg_patterns $(1)/usr/lib/lua/
 endef
 
 $(eval $(call BuildPackage,lpeg_patterns))
