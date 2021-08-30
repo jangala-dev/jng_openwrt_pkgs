@@ -22,6 +22,8 @@ define Package/lua-binaryheap
 	CATEGORY:=JNG
 	TITLE:=lua-binaryheap
 	DEPENDS:=+lua
+	PKGARCH:=all
+	MAINTAINER:=Rich <rich@janga.la>
 endef
 
 define Package/lua-binaryheap/description

@@ -18,10 +18,12 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-fifo
-	SECTION:=core
-	CATEGORY:=JNG
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
 	TITLE:=lua-fifo
 	DEPENDS:=+lua
+	PKGARCH:=all
 endef
 
 define Package/lua-fifo/description

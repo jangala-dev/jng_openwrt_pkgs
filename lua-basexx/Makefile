@@ -22,6 +22,8 @@ define Package/lua-basexx
 	CATEGORY:=JNG
 	TITLE:=lua-basexx
 	DEPENDS:=+lua
+	PKGARCH:=all
+	MAINTAINER:=Rich <rich@janga.la>
 endef
 
 define Package/lua-basexx/description
@@ -36,7 +38,7 @@ define Package/lua-basexx/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/basexx
 
-	$(CP) $(PKG_BUILD_DIR)/lib/*.lua 					$(1)/usr/lib/lua/basexx/
+	$(CP) $(PKG_BUILD_DIR)/lib/*.lua 	$(1)/usr/lib/lua/basexx/
 endef
 
 $(eval $(call BuildPackage,lua-basexx))

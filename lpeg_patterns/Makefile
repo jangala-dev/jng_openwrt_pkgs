@@ -3,6 +3,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=lpeg_patterns
 PKG_VERSION:=0.5
 PKG_RELEASE:=1
+PKG_LICENSE:=MIT
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/daurnimator/lpeg_patterns/tar.gz/refs/tags/v$(PKG_VERSION)?
@@ -18,14 +19,16 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lpeg_patterns
-	SECTION:=core
-	CATEGORY:=JNG
-	TITLE:=lpeg_patterns
+    SUBMENU:=Lua
+    SECTION:=lang
+    CATEGORY:=Languages
+	TITLE:=LPeg Patterns
 	DEPENDS:=+lua +lpeg
+	PKGARCH:=all
 endef
 
 define Package/lpeg_patterns/description
-	A collection of LPEG patterns.
+	A collection of LPeg patterns.
 endef
 
 define Build/Compile
@@ -34,11 +37,7 @@ endef
 
 define Package/lpeg_patterns/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/lpeg_patterns
-	$(INSTALL_DIR) $(1)/usr/lib/lua/lpeg_patterns/http
-
-	$(CP) $(PKG_BUILD_DIR)/lpeg_patterns/*.lua 					$(1)/usr/lib/lua/lpeg_patterns/
-	$(CP) $(PKG_BUILD_DIR)/lpeg_patterns/http/*.lua 			$(1)/usr/lib/lua/lpeg_patterns/http
+	$(CP) $(PKG_BUILD_DIR)/lpeg_patterns $(1)/usr/lib/lua
 endef
 
 $(eval $(call BuildPackage,lpeg_patterns))

@@ -18,14 +18,16 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-http
-	SECTION:=core
-	CATEGORY:=JNG
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
 	TITLE:=lua-http
 	DEPENDS:=+lua +lua-cqueues +luaossl +lua-basexx +lpeg +lpeg_patterns +lua-binaryheap +lua-fifo
+	PKGARCH:=all
 endef
 
 define Package/lua-http/description
-	lua-http is an performant, capable HTTP and WebSocket library for Lua 5.1, 5.2, 5.3 and LuaJIT.
+	lua-http is a performant, capable HTTP and WebSocket library for Lua 5.1, 5.2, 5.3 and LuaJIT.
 endef
 
 define Build/Compile
@@ -34,11 +36,7 @@ endef
 
 define Package/lua-http/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/http
-	$(INSTALL_DIR) $(1)/usr/lib/lua/http/compat
-
-	$(CP) $(PKG_BUILD_DIR)/http/*.lua 					$(1)/usr/lib/lua/http/
-	$(CP) $(PKG_BUILD_DIR)/http/compat/*.lua 			$(1)/usr/lib/lua/http/compat
+	$(CP) $(PKG_BUILD_DIR)/http					$(1)/usr/lib/lua
 endef
 
 $(eval $(call BuildPackage,lua-http))
