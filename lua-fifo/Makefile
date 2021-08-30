@@ -33,6 +33,9 @@ endef
 define Build/Compile
 endef
 
+define Build/Install
+endef
+
 define Package/lua-fifo/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
 	$(INSTALL_DIR) $(1)/usr/lib/lua/fifo
