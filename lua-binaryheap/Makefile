@@ -39,8 +39,13 @@ define Package/lua-binaryheap/description
 	Binary heap implementation in lua.
 endef
 
+define Build/Configure
+endef
+
 define Build/Compile
-	echo "Nothing to compile, pure lua package"
+endef
+
+define Build/Install
 endef
 
 define Package/lua-binaryheap/install
