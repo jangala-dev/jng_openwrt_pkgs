@@ -4,10 +4,10 @@ PKG_NAME:=lua-cqueues
 PKG_VERSION:=rel-20200726
 PKG_RELEASE:=1
 
-PKG_SOURCE:=cqueues-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/wahern/cqueues/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=9e112edd246da5cfca264314b70325a0b63665cb87a00e45ee3ae4f194000d52
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/cqueues-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Rich <rich@janga.la>
 PKG_LICENSE:=MIT
