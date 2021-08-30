@@ -27,8 +27,13 @@ define Package/lpeg_patterns/description
 	A collection of LPeg patterns.
 endef
 
+define Build/Configure
+endef
+
 define Build/Compile
-	echo "Nothing to compile, pure lua package"
+endef
+
+define Build/Install
 endef
 
 define Package/lpeg_patterns/install

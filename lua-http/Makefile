@@ -26,8 +26,13 @@ define Package/lua-http/description
 	lua-http is a performant, capable HTTP and WebSocket library for Lua 5.1, 5.2, 5.3 and LuaJIT.
 endef
 
+define Build/Configure
+endef
+
 define Build/Compile
-	echo "Nothing to compile, pure lua package"
+endef
+
+define Build/Install
 endef
 
 define Package/lua-http/install

@@ -27,8 +27,13 @@ define Package/lua-fifo/description
 	A lua library/'class' that implements a FIFO. Objects in the fifo can be of any type, including nil.
 endef
 
-define Package/lpeg_patterns/description
-	A collection of LPeg patterns.
+define Build/Configure
+endef
+
+define Build/Compile
+endef
+
+define Build/Install
 endef
 
 define Package/lua-fifo/install
