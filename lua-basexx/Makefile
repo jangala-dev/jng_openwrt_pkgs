@@ -39,8 +39,13 @@ define Package/lua-basexx/description
   A Lua library for base2, base16, base32, base64, base85 decoding and encoding of data strings.
 endef
 
+define Build/Configure
+endef
+
 define Build/Compile
-	echo "Nothing to compile, pure lua package"
+endef
+
+define Build/Install
 endef
 
 define Package/lua-basexx/install
