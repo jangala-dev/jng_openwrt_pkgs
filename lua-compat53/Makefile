@@ -42,8 +42,8 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include
 
 define Build/Compile
-  cd $(PKG_BUILD_DIR) && \
-  luarocks make --pack-binary-rock rockspecs/compat53-scm-0.rockspec \
+	cd $(PKG_BUILD_DIR) && \
+	luarocks make --pack-binary-rock rockspecs/compat53-scm-0.rockspec \
 	LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
 	LUA_PKGNAME=lua5.1 \
 	CFLAGS="$(TARGET_CFLAGS) $(FPIC)" \
@@ -51,11 +51,11 @@ define Build/Compile
 	CC="$(TARGET_CC)" LD="$(TARGET_CC)"
 endef
 
-define Package/$(PKG_NAME)/install
+define Package/lua-compat53/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
-  $(INSTALL_DIR) $(1)/usr/lib/lua/compat53
+	$(INSTALL_DIR) $(1)/usr/lib/lua/compat53
 
-  $(CP) $(PKG_BUILD_DIR)/compat53/* $(1)/usr/lib/lua/compat53
+	$(CP) $(PKG_BUILD_DIR)/compat53/* $(1)/usr/lib/lua/compat53
 endef
 
 $(eval $(call BuildPackage,lua-compat53))
