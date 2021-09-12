@@ -5,18 +5,13 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=lua-compat53
+PKG_NAME:=lua-compat-5.3
 PKG_VERSION:=0.8
 PKG_RELEASE:=1
 
-
-PKG_SRC_NAME:=lua-compat-5.3
-PKG_SRC_VERSION:=0.8
-PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_SRC_NAME)/tar.gz/refs/tags/v$(PKG_SRC_VERSION)?
+PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_NAME)/tar.gz/refs/tags/v$(PKG_VERSION)?
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=97cc1c1d94e128969c2acbef47ce162d856bafd6c72674e7f7530f9ef97e07c3
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SRC_NAME)-$(PKG_SRC_VERSION)
-
 PKG_MAINTAINER:=Rich Thanki <rich@janga.la>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -29,7 +24,7 @@ define Package/lua-compat53
   SUBMENU:=Lua
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Lua-5.3-style APIs for Lua 5.2 and 5.1.
+  TITLE:=Lua-5.3-style APIs for Lua 5.2 and 5.1
   DEPENDS:=+lua
 endef
 
