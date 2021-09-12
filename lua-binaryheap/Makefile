@@ -51,7 +51,7 @@ endef
 define Package/lua-binaryheap/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
 
-	$(CP) $(PKG_BUILD_DIR)/src $(1)/usr/lib/lua/binaryheap
+	$(CP) $(PKG_BUILD_DIR)/src/* $(1)/usr/lib/lua/
 endef
 
 $(eval $(call BuildPackage,lua-binaryheap))

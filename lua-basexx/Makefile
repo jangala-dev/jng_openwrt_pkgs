@@ -51,7 +51,7 @@ endef
 define Package/lua-basexx/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
 
-	$(CP) $(PKG_BUILD_DIR)/lib $(1)/usr/lib/lua/basexx
+	$(CP) $(PKG_BUILD_DIR)/lib/* $(1)/usr/lib/lua/
 endef
 
 $(eval $(call BuildPackage,lua-basexx))

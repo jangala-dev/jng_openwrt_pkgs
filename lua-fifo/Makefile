@@ -38,9 +38,8 @@ endef
 
 define Package/lua-fifo/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
-	$(INSTALL_DIR) $(1)/usr/lib/lua/fifo
 
-	$(CP) $(PKG_BUILD_DIR)/*.lua 	$(1)/usr/lib/lua/fifo/
+	$(CP) $(PKG_BUILD_DIR)/*.lua 	$(1)/usr/lib/lua/
 endef
 
 $(eval $(call BuildPackage,lua-fifo))
