@@ -5,13 +5,16 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=lua-compat-5.3
+PKG_NAME:=lua-compat53
 PKG_VERSION:=0.8
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_NAME)/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_NAME=lua-compat-5.3
+PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_SOURCE_NAME)/tar.gz/refs/tags/v$(PKG_VERSION)?
+PKG_SOURCE:=$(PKG_SOURCE_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=97cc1c1d94e128969c2acbef47ce162d856bafd6c72674e7f7530f9ef97e07c3
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
 PKG_MAINTAINER:=Rich Thanki <rich@janga.la>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -20,7 +23,7 @@ PKG_BUILD_DEPENDS:=luarocks/host
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/$(PKG_NAME)
+define Package/lua-compat53
   SUBMENU:=Lua
   SECTION:=lang
   CATEGORY:=Languages
@@ -28,7 +31,7 @@ define Package/$(PKG_NAME)
   DEPENDS:=+lua
 endef
 
-define Package/$(PKG_NAME)/description
+define Package/lua-compat53/description
   This is a small module that aims to make it easier to write code in a 
   Lua-5.3-style that is compatible with Lua 5.1, Lua 5.2, and Lua 5.3. 
   This does not make Lua 5.2 (or even Lua 5.1) entirely compatible with Lua 
