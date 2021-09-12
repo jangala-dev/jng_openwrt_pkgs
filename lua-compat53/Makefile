@@ -20,7 +20,7 @@ PKG_BUILD_DEPENDS:=luarocks/host
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/lua-compat53
+define Package/$(PKG_NAME)
   SUBMENU:=Lua
   SECTION:=lang
   CATEGORY:=Languages
@@ -28,7 +28,7 @@ define Package/lua-compat53
   DEPENDS:=+lua
 endef
 
-define Package/lua-compat53/description
+define Package/$(PKG_NAME)/description
   This is a small module that aims to make it easier to write code in a 
   Lua-5.3-style that is compatible with Lua 5.1, Lua 5.2, and Lua 5.3. 
   This does not make Lua 5.2 (or even Lua 5.1) entirely compatible with Lua 
@@ -55,4 +55,4 @@ define Package/$(PKG_NAME)/install
   $(CP) $(PKG_BUILD_DIR)/compat53/* $(1)/usr/lib/lua/compat53
 endef
 
-$(eval $(call BuildPackage,lua-compat53))
+$(eval $(call BuildPackage,lua-compat-5.3))
