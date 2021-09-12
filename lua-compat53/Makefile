@@ -43,7 +43,7 @@ TARGET_CFLAGS += \
 
 define Build/Compile
 	cd $(PKG_BUILD_DIR) && \
-	luarocks make --pack-binary-rock ./rockspecs/compat53-scm-0.rockspec \
+	luarocks make --pack-binary-rock $(PKG_BUILD_DIR)/rockspecs/compat53-scm-0.rockspec \
 	LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
 	LUA_PKGNAME=lua5.1 \
 	CFLAGS="$(TARGET_CFLAGS) $(FPIC)" \
