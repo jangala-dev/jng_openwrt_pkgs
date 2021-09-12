@@ -24,18 +24,18 @@ PKG_BUILD_DEPENDS:=luarocks/host
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-compat53
-  SUBMENU:=Lua
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=Lua-5.3-style APIs for Lua 5.2 and 5.1
-  DEPENDS:=+lua
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
+	TITLE:=Lua-5.3-style APIs for Lua 5.2 and 5.1
+	DEPENDS:=+lua
 endef
 
 define Package/lua-compat53/description
-  This is a small module that aims to make it easier to write code in a 
-  Lua-5.3-style that is compatible with Lua 5.1, Lua 5.2, and Lua 5.3. 
-  This does not make Lua 5.2 (or even Lua 5.1) entirely compatible with Lua 
-  5.3, but it brings the API closer to that of Lua 5.3.
+	This is a small module that aims to make it easier to write code in a 
+	Lua-5.3-style that is compatible with Lua 5.1, Lua 5.2, and Lua 5.3. 
+	This does not make Lua 5.2 (or even Lua 5.1) entirely compatible with Lua 
+	5.3, but it brings the API closer to that of Lua 5.3.
 endef
 
 TARGET_CFLAGS += \
@@ -43,7 +43,7 @@ TARGET_CFLAGS += \
 
 define Build/Compile
 	cd $(PKG_BUILD_DIR) && \
-	luarocks make --pack-binary-rock rockspecs/compat53-scm-0.rockspec \
+	luarocks make --pack-binary-rock ./rockspecs/compat53-scm-0.rockspec \
 	LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
 	LUA_PKGNAME=lua5.1 \
 	CFLAGS="$(TARGET_CFLAGS) $(FPIC)" \
