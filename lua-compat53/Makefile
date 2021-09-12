@@ -12,7 +12,7 @@ PKG_RELEASE:=1
 
 PKG_SRC_NAME:=lua-compat-5.3
 PKG_SRC_VERSION:=0.8
-PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_SRC_NAME)/tar.gz/v$(PKG_SRC_VERSION)?
+PKG_SOURCE_URL=https://codeload.github.com/keplerproject/$(PKG_SRC_NAME)/tar.gz/refs/tags/v$(PKG_SRC_VERSION)?
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=97cc1c1d94e128969c2acbef47ce162d856bafd6c72674e7f7530f9ef97e07c3
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SRC_NAME)-$(PKG_SRC_VERSION)
