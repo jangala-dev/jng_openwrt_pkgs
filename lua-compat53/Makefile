@@ -58,4 +58,4 @@ define Package/$(PKG_NAME)/install
   $(CP) $(PKG_BUILD_DIR)/compat53/* $(1)/usr/lib/lua/compat53
 endef
 
-$(eval $(call BuildPackage,lua-compat-5.3))
+$(eval $(call BuildPackage,lua-compat53))
