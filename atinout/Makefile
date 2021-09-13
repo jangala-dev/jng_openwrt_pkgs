@@ -1,28 +1,36 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=atinout
-PKG_VERSION:=v0.9.1
-PKG_RELEASE:=1
+PKG_VERSION=0.9.1
+
+PKG_MAINTAINER:=Konstantine Shevlakov <shevlakov@132lan.ru>
+PKG_LICENSE:=GPLv2
+PKG_LICENSE_FILES:=LICENSE
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/beralt/atinout.git
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_VERSION:=4013e8db4cd140c1df24bb90f929efeb9b61b238
 
-PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/atinout
-	SECTION:=core
-	CATEGORY:=JNG
-	TITLE:=Atinout
+define Package/$(PKG_NAME)
+	SECTION:=net
+	CATEGORY:=Network
+	SUBMENU:=Telephony
+	TITLE:=Send AT commands to a modem
+	URL:=http://atinout.sourceforge.net/
+	MAINTAINER:=Adrian Guenter <a@gntr.me>
 endef
 
-define Package/atinout/description
-Atinout is a program that will execute AT commands in sequence and
-capture the response from the modem.
+define Package/$(PKG_NAME)/description
+	Atinout is a program that will execute AT commands in sequence and
+	capture the response from the modem.
 endef
+
 
 CONFIGURE_VARS += \
   CC="$(TARGET_CC)" \
@@ -41,16 +49,9 @@ define Build/Compile
 
 endef
 
-define Package/atinout/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/atinout $(1)/usr/bin/atinout
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin/$(PKG_NAME)
 endef
 
-define Package/atinout/postinst
-	#!/bin/sh
-	[ -n "$${IPKG_INST_ROOT}" ] && exit 0
-	exit 0
-endef
-
-$(eval $(call BuildPackage,atinout))
+$(eval $(call BuildPackage,$(PKG_NAME)))
