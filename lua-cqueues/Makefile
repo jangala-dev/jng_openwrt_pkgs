@@ -15,17 +15,17 @@ PKG_LICENSE:=MIT
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-cqueues
-  SUBMENU:=Lua
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=Lua CQueues
-  URL:=http://25thandclement.com/~william/projects/cqueues.html
-  DEPENDS:=+lua +libopenssl +librt +libpthread
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
+	TITLE:=Lua CQueues
+	URL:=http://25thandclement.com/~william/projects/cqueues.html
+	DEPENDS:=+lua +libopenssl +librt +libpthread
 endef
 
 define Package/lua-cqueues/description
-  Continuation Queues: Embeddable asynchronous networking, threading, and
-  notification framework for Lua on Unix.
+	Continuation Queues: Embeddable asynchronous networking, threading, and
+	notification framework for Lua on Unix.
 endef
 
 define Build/Configure

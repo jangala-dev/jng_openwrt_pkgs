@@ -26,24 +26,24 @@ PKG_BUILD_DEPENDS:=luarocks/host
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-bit32
-  SUBMENU:=Lua
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=Lua 5.2 bit manipulation library
-  DEPENDS:=+lua
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
+	TITLE:=Lua 5.2 bit manipulation library
+	DEPENDS:=+lua
 endef
 
 define Package/lua-bit32/description
-  lua-bit32 is the native Lua 5.2 bit manipulation library,
-  backported to Lua 5.1
+	lua-bit32 is the native Lua 5.2 bit manipulation library,
+	backported to Lua 5.1
 endef
 
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include
 
 define Build/Compile
-  cd $(PKG_BUILD_DIR) && \
-  luarocks make --pack-binary-rock bit32-scm-1.rockspec \
+	cd $(PKG_BUILD_DIR) && \
+	luarocks make --pack-binary-rock bit32-scm-1.rockspec \
 	LUA_LIBDIR=$(STAGING_DIR)/usr/lib/lua \
 	LUA_PKGNAME=lua5.1 \
 	CFLAGS="$(TARGET_CFLAGS) $(FPIC)" \

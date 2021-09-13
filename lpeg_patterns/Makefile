@@ -15,9 +15,9 @@ PKG_LICENSE:=MIT
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lpeg_patterns
-    SUBMENU:=Lua
-    SECTION:=lang
-    CATEGORY:=Languages
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
 	TITLE:=LPeg Patterns
 	DEPENDS:=+lua +lpeg
 	PKGARCH:=all

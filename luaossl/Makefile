@@ -18,17 +18,17 @@ PKG_HASH:=f3054e1ce26ca65ecaa7dcf193ea97d6a06933e4aa516779ebb89a6727d8a28f
 include $(INCLUDE_DIR)/package.mk
 
 define Package/luaossl
-  SUBMENU:=Lua
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=luaossl
-  URL:=http://25thandclement.com/~william/projects/luaossl.html
-  MAINTAINER:=Rich <rich@janga.la>
-  DEPENDS:=+lua +libopenssl +libpthread
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
+	TITLE:=luaossl
+	URL:=http://25thandclement.com/~william/projects/luaossl.html
+	MAINTAINER:=Rich <rich@janga.la>
+	DEPENDS:=+lua +libopenssl +libpthread
 endef
 
 define Package/luaossl/description
-  luaossl is a comprehensive binding to OpenSSL for Lua 5.1, 5.2, and later.
+	luaossl is a comprehensive binding to OpenSSL for Lua 5.1, 5.2, and later.
 endef
 
 define Build/Configure
