@@ -26,17 +26,17 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lua-basexx
-  SUBMENU:=Lua
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=lua-basexx
-  URL:=https://github.com/aiq/basexx
-  DEPENDS:=+lua
-  PKGARCH:=all
+	SUBMENU:=Lua
+	SECTION:=lang
+	CATEGORY:=Languages
+	TITLE:=lua-basexx
+	URL:=https://github.com/aiq/basexx
+	DEPENDS:=+lua
+	PKGARCH:=all
 endef
 
 define Package/lua-basexx/description
-  A Lua library for base2, base16, base32, base64, base85 decoding and encoding of data strings.
+	A Lua library for base2, base16, base32, base64, base85 decoding and encoding of data strings.
 endef
 
 define Build/Configure
