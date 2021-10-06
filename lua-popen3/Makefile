@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lua-popen3
-PKG_VERSION:=1.0
+PKG_VERSION:=0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/jangala-dev/lua-popen3/tar.gz/refs/tags/v$(PKG_VERSION)?
-PKG_HASH:=4bc421c688e3b61363f74031dbf29ef1484b08189485e5188578c38eb8717d13
+PKG_HASH:=e281d039392fcb3251d0a3b6a3685e6751e736a1b055d2d3426b099dab183324
 PKG_BUILD_DIR:=$(BUILD_DIR)/lua-popen3-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Rich <rich@janga.la>
