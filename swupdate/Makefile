@@ -6,7 +6,7 @@ PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sbabic/swupdate/archive/$(PKG_VERSION)
-PKG_HASH:=5afe78ae94e869bcb911d8592251641cdab80096d8e5149d483054ea49f9aab8
+PKG_HASH:=c17fea66c9ea564614e90dad79ffd4a5
 
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
