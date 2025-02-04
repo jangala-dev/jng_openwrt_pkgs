@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=swupdate
-PKG_VERSION:=2021.04
+PKG_VERSION:=2022.12
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sbabic/swupdate/archive/$(PKG_VERSION)
-PKG_HASH:=5afe78ae94e869bcb911d8592251641cdab80096d8e5149d483054ea49f9aab8
+PKG_HASH:=e6335e87812a98a87f1c55df03c9f4e4ef042789570002c5db120b09f64b0d86
 MTD_VERSION_DIR:=$(notdir $(wildcard $(BUILD_DIR)/mtd-*))
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
