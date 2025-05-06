@@ -6,8 +6,8 @@ PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sbabic/swupdate/archive/$(PKG_VERSION)
-PKG_HASH:=5afe78ae94e869bcb911d8592251641cdab80096d8e5149d483054ea49f9aab8
-MTD_VERSION_DIR:=$(notdir $(wildcard $(BUILD_DIR)/mtd-*))
+PKG_HASH:=da015895cdac6a60b40ed0b01e133b08
+MTD_VERSION_DIR:=$(notdir $(wildcard $(TOPDIR)/build_dir/host/mtd-utils*))
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
 PKG_BUILD_DEPENDS:=mtd-utils
@@ -49,12 +49,7 @@ endef
 
 define Package/swupdate/install
 	$(INSTALL_DIR) $(1)/usr/bin/
-
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/swupdate $(1)/usr/bin/swupdate
-endef
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)
 endef
 
 $(eval $(call BuildPackage,swupdate))
