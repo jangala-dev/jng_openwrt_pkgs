@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=swupdate
-PKG_VERSION:=2022.12
+PKG_VERSION:=2021.04
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sbabic/swupdate/archive/$(PKG_VERSION)
-PKG_HASH:=da015895cdac6a60b40ed0b01e133b08
-MTD_VERSION_DIR:=$(notdir $(wildcard $(TOPDIR)/build_dir/host/mtd-utils*))
+PKG_HASH:=5afe78ae94e869bcb911d8592251641cdab80096d8e5149d483054ea49f9aab8
+
 PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 
 PKG_BUILD_DEPENDS:=mtd-utils
@@ -16,8 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/mtd/
-	echo $(MTD_VERSION_DIR)
-	$(CP) -R $(TOPDIR)/build_dir/host/$(MTD_VERSION_DIR)/include/* $(STAGING_DIR)/usr/include/
+	$(CP) -R $(TOPDIR)/build_dir/host/mtd-utils-2.1.2/include/* $(STAGING_DIR)/usr/include/
 endef
 
 define Package/swupdate
@@ -32,7 +31,7 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include/mtd/mtd \
 	-I$(STAGING_DIR)/usr/include
 TARGET_LDFLAGS += \
-	-L$(BUILD_DIR)/$(MTD_VERSION_DIR)
+	-L$(BUILD_DIR)/mtd-utils-2.1.2
 
 MAKE_FLAGS += \
 	CFLAGS="$(TARGET_CFLAGS)" \
@@ -49,6 +48,7 @@ endef
 
 define Package/swupdate/install
 	$(INSTALL_DIR) $(1)/usr/bin/
+
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/swupdate $(1)/usr/bin/swupdate
 endef
 
