@@ -53,4 +53,8 @@ define Package/swupdate/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/swupdate $(1)/usr/bin/swupdate
 endef
 
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR)
+endef
+
 $(eval $(call BuildPackage,swupdate))
