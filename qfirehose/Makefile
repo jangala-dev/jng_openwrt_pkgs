@@ -28,6 +28,11 @@ TARGET_LDFLAGS += -lpthread -ldl
 define Build/Configure
 endef
 
+define Build/Prepare
+    mkdir -p $(PKG_BUILD_DIR)
+    $(CP) ./src/* $(PKG_BUILD_DIR)/
+endef
+
 define Build/Compile
     $(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_CPPFLAGS) \
         $(PKG_BUILD_DIR)/firehose_protocol.c \
