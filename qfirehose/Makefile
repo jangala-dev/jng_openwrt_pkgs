@@ -30,7 +30,7 @@ endef
 
 define Build/Prepare
     mkdir -p $(PKG_BUILD_DIR)
-    $(CP) ./src/* $(PKG_BUILD_DIR)/
+    $(CP) ./$(PKG_NAME)-$(PKG_VERSION)/* $(PKG_BUILD_DIR)/
 endef
 
 define Build/Compile
