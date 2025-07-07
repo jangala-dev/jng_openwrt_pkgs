@@ -6,7 +6,7 @@ PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Quectel <support@quectel.com>
 PKG_LICENSE:=Proprietary
-PKG_LICENSE_FILES:=
+PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 include $(INCLUDE_DIR)/package.mk
