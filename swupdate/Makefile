@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/mtd/
-	$(CP) -R $(TOPDIR)/build_dir/target-*/mtd-utils-2.1.4/include/* $(STAGING_DIR)/usr/include/
+	$(CP) -R $(TOPDIR)/build_dir/target-*/mtd-utils-2.2.1/include/* $(STAGING_DIR)/usr/include/
 endef
 
 define Package/swupdate
@@ -31,7 +31,7 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include/mtd/mtd \
 	-I$(STAGING_DIR)/usr/include
 TARGET_LDFLAGS += \
-	-L$(BUILD_DIR)/mtd-utils-2.1.4
+	-L$(BUILD_DIR)/mtd-utils-2.2.1
 
 MAKE_FLAGS += \
 	CFLAGS="$(TARGET_CFLAGS)" \
