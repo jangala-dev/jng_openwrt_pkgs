@@ -18,13 +18,13 @@ PKG_HASH:=f3054e1ce26ca65ecaa7dcf193ea97d6a06933e4aa516779ebb89a6727d8a28f
 include $(INCLUDE_DIR)/package.mk
 
 define Package/luaossl
-	SUBMENU:=Lua
-	SECTION:=lang
-	CATEGORY:=Languages
-	TITLE:=luaossl
-	URL:=http://25thandclement.com/~william/projects/luaossl.html
-	MAINTAINER:=Rich <rich@janga.la>
-	DEPENDS:=+lua +libopenssl +libpthread
+    SUBMENU:=Lua
+    SECTION:=lang
+    CATEGORY:=Languages
+    TITLE:=luaossl
+    URL:=http://25thandclement.com/~william/projects/luaossl.html
+    MAINTAINER:=Rich <rich@janga.la>
+	DEPENDS:=+luajit +libopenssl +libpthread
 endef
 
 define Package/luaossl/description
@@ -37,17 +37,18 @@ endef
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR)/ \
 		LUA_APIS="5.1" \
+		LUAPC=luajit \
 		ALL_LDFLAGS="$(TARGET_LDFLAGS)" \
-		CC="$(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_CPPFLAGS) -fPIC -std=gnu99" \
+		CC="$(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_CPPFLAGS) -fPIC -std=gnu99 $(shell $(PKG_CONFIG) --cflags luajit)" \
 		LD="$(TARGET_CROSS)ld -shared" \
 		all5.1
 endef
 
 define Package/luaossl/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua
-	$(MAKE) -C $(PKG_BUILD_DIR)/ \
-		lua51path=$(1)/usr/lib/lua lua51cpath=$(1)/usr/lib/lua \
-		install5.1
+    $(INSTALL_DIR) $(1)/usr/lib/lua
+    $(MAKE) -C $(PKG_BUILD_DIR)/ \
+        lua51path=$(1)/usr/lib/lua lua51cpath=$(1)/usr/lib/lua \
+        install5.1
 endef
 
 $(eval $(call BuildPackage,luaossl))
