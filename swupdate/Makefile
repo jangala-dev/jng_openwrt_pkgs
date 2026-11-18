@@ -13,10 +13,16 @@ PKG_MAINTAINER:=Wambui Karuga <wambui@janga.la>
 PKG_BUILD_DEPENDS:=mtd-utils
 include $(INCLUDE_DIR)/package.mk
 
+# mtd-utils' build directory, whatever version this OpenWrt release builds
+# (2.2.1 on 24.10, 2.3.0 on 25.12). Expanded when used, after mtd-utils
+# has been built.
+MTD_UTILS_BUILD_DIR = $(firstword $(wildcard $(BUILD_DIR)/mtd-utils-*))
+
 define Build/Prepare
 	$(Build/Prepare/Default)
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/mtd/
-	$(CP) -R $(TOPDIR)/build_dir/target-*/mtd-utils-2.2.1/include/* $(STAGING_DIR)/usr/include/
+	test -d "$(MTD_UTILS_BUILD_DIR)"
+	$(CP) -R $(MTD_UTILS_BUILD_DIR)/include/* $(STAGING_DIR)/usr/include/
 endef
 
 define Package/swupdate
@@ -31,7 +37,7 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include/mtd/mtd \
 	-I$(STAGING_DIR)/usr/include
 TARGET_LDFLAGS += \
-	-L$(BUILD_DIR)/mtd-utils-2.2.1
+	-L$(MTD_UTILS_BUILD_DIR)
 
 MAKE_FLAGS += \
 	CFLAGS="$(TARGET_CFLAGS)" \
