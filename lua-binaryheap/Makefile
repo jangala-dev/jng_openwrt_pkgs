@@ -8,13 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lua-binaryheap
-PKG_VERSION:=version_0v4
+# apk needs a numeric version; the upstream tag is kept for downloads
+PKG_UPSTREAM_TAG:=version_0v4
+PKG_VERSION:=0.4
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/Tieske/binaryheap.lua/tar.gz/refs/tags/$(PKG_VERSION)?
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_UPSTREAM_TAG).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/Tieske/binaryheap.lua/tar.gz/refs/tags/$(PKG_UPSTREAM_TAG)?
 PKG_HASH:=10b1b6c6f2d22560f512f9896a6672ec5ae0eea1390ff8e662be1d5d9625b438
-PKG_BUILD_DIR:=$(BUILD_DIR)/binaryheap.lua-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/binaryheap.lua-$(PKG_UPSTREAM_TAG)
 
 PKG_MAINTAINER:=Rich Thanki <rich@janga.la>
 PKG_LICENSE:=MIT

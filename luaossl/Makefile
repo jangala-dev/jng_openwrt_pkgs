@@ -8,12 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luaossl
-PKG_VERSION:=rel-20200709
+# apk needs a numeric version; the upstream tag is kept for downloads
+PKG_UPSTREAM_TAG:=rel-20200709
+PKG_VERSION:=20200709
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/wahern/luaossl/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_UPSTREAM_TAG).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/wahern/luaossl/tar.gz/$(PKG_UPSTREAM_TAG)?
 PKG_HASH:=f3054e1ce26ca65ecaa7dcf193ea97d6a06933e4aa516779ebb89a6727d8a28f
+PKG_BUILD_DIR:=$(BUILD_DIR)/luaossl-$(PKG_UPSTREAM_TAG)
 
 include $(INCLUDE_DIR)/package.mk
 
