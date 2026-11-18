@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libubootenv
 PKG_VERSION:=0.3.2
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sbabic/libubootenv/archive/v$(PKG_VERSION)
@@ -16,6 +16,9 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 CMAKE_OPTIONS += -DBUILD_DOC=OFF
+# libubootenv 0.3.2 declares cmake_minimum_required < 3.5, which current
+# CMake rejects
+CMAKE_OPTIONS += -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 define Package/libubootenv
 	SECTION:=libs
